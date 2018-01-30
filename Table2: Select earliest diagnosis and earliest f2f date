@@ -1,0 +1,15 @@
+SELECT *
+
+INTO Afernandes_actual_Table2
+
+FROM 
+
+(
+select *
+from Afernandes_Table2
+where Event_id = (select min(Event_id) from Afernandes_Table2 as f where f.ReferralBrcid = Afernandes_Table2.ReferralBrcid)
+and
+diagnosis_id = (select min(diagnosis_id) from Afernandes_Table2 as f where f.ReferralBrcid = Afernandes_Table2.ReferralBrcid)
+)as TABC
+
+
