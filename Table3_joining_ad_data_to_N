@@ -1,0 +1,284 @@
+
+ 
+ SELECT *
+ 
+ INTO Afernandes_Table3
+ 
+ 
+ FROM 
+ 
+ (
+ SELECT [ReferralBrcid]
+      ,[Referral_accepted_date]
+      ,[Referral_end_date]
+      ,[Spell_Number]
+      ,[Event_start_date]
+      ,[Event_Type_Of_Contact_ID]
+      ,[Referral_id]
+      ,[Event_id]
+      ,[diagnosis_date]
+      ,[primary_diagnosis]
+      ,[diagnosis_id]					
+	  ,SQLCrisImport.dbo.medication_combined.drug,
+							SQLCrisImport.dbo.medication_combined.start_date,
+							SQLCrisImport.dbo.medication_combined.End_Date,
+							SQLCrisImport.dbo.medication_combined.brcid,
+							SQLCrisImport.dbo.medication_combined.id,
+
+		  					(
+							CASE 
+														   WHEN drug like '%lithium%' 
+															 or drug like '%camcolit%'  
+															 or drug like '%liskonum%' 
+															 or drug like '%priadel%' 
+															 or drug like '%li-liquid%' 
+														   THEN 'LITHIUM'
+														   
+
+														   WHEN drug like '%amitriptyline%' 
+															 or drug like '%vanatrip%' --frOM drugs.COm
+															 or drug like '%elavil%'   --frOM drugs.COm
+															 or drug like '%endep%'    --frOM drugs.COm
+															 or DRuG LIKE '%triptaf%'  --COnTAInS AMItRIpTyLINe AnD PErPHEnAZInE
+														   THEN 'TCA_AMITRIPTYLINE'
+														   
+														   WHEN drug like '%clomipramin%' 
+															 or drug like '%anafranil%' 
+														   THEN 'TCA_Clomipramine'
+														   
+														   WHEN drug like '%dosulepin%' 
+															 or drug like '%dothiepin%' --PreViOuSLy KnoWN As DoTHIEPIN
+															 or drug like '%prothiden%' 
+															 or drug like '%prothiaden%' 
+														   THEN 'TCA_Dosulepin'
+														     
+														   WHEN drug like '%doxepin%' 
+															 or drug like '%sinepin%' 
+															 or drug like '%sineq%'  --FroM drug.SCOm
+															-- or drug like '%xepin%' --FRom DRUGS.CoM ---picks up type of SSRI Mirtazapine
+														   THEN 'TCA_Doxepin'
+														     
+														   WHEN drug like '%imipramine%' 
+															 or drug like '%tofranil%' -- FroM DrUGS.coM
+														   THEN 'TCA_Imipramine'  
+														     
+														   WHEN drug like '%lofepramine%' 
+															 or drug like '%lomont%'
+														   THEN 'TCA_Lofepramine'
+																
+														   WHEN drug like '%nortriptyli%' 
+															 or drug like '%pamelo%'
+															 or drug like '%allegr%' 
+															 or drug like '%aventyl%'
+														   THEN 'TCA_Nortriptylin'
+														   
+														   WHEN drug like '%trimipram%' 
+															 or drug like '%surmonti%' 
+														   THEN 'TCA_Trimipramine'
+													       
+														   WHEN drug like '%mianserin%' 
+														   THEN 'TCArelated_Mianserin'
+													       
+														   WHEN drug like '%trazodone%' 
+															 or drug like '%molipaxin%' 
+														   THEN 'TCArelated_Trazodone'
+													       
+														   WHEN drug like '%phenelzine%' 
+															 or drug like '%phenylethylhydrazine%'
+															-- or drug like '%alazin%' picks up non-AD drugs
+															 or drug like '%nardil%' 
+														   THEN 'MAOI_Phenelzine'
+													       
+														   WHEN drug like '%isocarboxazid%' 
+														   THEN 'MAOI_Isocarboxazid'
+													       
+														   WHEN drug like '%tranylcypromin%' 
+															 or drug like '%parnate%'
+														   THEN 'MAOI_Tranylcypromine'
+
+														   WHEN drug like '%moclobemide%' 
+															 or drug like '%manerix%' 
+														   THEN 'REVERSEMAOI_Moclobemide'
+													       
+														   WHEN Drug like 'citalopram%' 
+															 or drug like '%cipramil%' 
+															 or drug like '%celexa%' 
+														   THEN 'SSRI_Citalopram'
+													         
+														   WHEN drug like '%escitalopram%' 
+															 or drug like '%cipralex%'
+															 or drug like '%lexapro%'
+														   THEN 'SSRI_Escitalopram' 
+													         
+														   WHEN drug like '%fluoxetine%' 
+															 or drug like '%prozac%' 
+															 or drug like '%sarafem%'
+															 or drug like '%bellzac%' --from drugs.com; used in Ireland
+															 or drug like '%oxactin%' --from drugs.com; drug company: Discovery
+														   THEN 'SSRI_Fluoxetine'
+													       
+														   WHEN drug like '%fluvoxamine%' 
+															 or drug like '%faverin%' 
+														   THEN 'SSRI_Fluvoxamine'
+														   
+														   WHEN drug like'%paroxetin%' 
+															 or drug like '%paxil%' --from drugs.com; not specified for UK use but used in US
+															 or drug like '%seroxat%' 
+														   THEN 'SSRI_Paroxetine'
+														   
+														   WHEN drug like '%sertra%' 
+															 or drug like '%bellsert%' --from drugs.com; used in Ireland
+															 or drug like '%lustral%' 
+															 or drug like '%seretra%' --from drugs.com; used in Ireland   
+															 or drug like '%zoloft%'  -- from drugs.come; not specified for UK but used in US
+														   THEN 'SSRIs_Sertraline'
+													 
+														   WHEN drug like '%mirtazapin%' 
+															 or drug like '%mirtazepin%' 
+															 or drug like '%zispin%' 
+															 or drug like '%mirza%'
+															 or drug like '%mirtaxepin%'
+														   THEN 'OTHERAD_Mirtazapin'
+													       
+														   WHEN  drug like '%reboxet%' 
+															  or drug like '%reboxat%'
+															  or drug like '%edronax%'
+														   THEN 'SNRI_Reboxetin'
+													       
+														   WHEN  drug like '%venlafaxine%' 
+															  or drug like '%effexor%'
+															  or drug like '%efexor%'
+														   THEN 'OTHERAD_Venlafaxine'
+													       
+														   WHEN drug like '%agomelatin%' 
+															 or drug like '%valdoxan%' 
+														   THEN 'OTHERAD_Agomelatin'
+													       
+														   WHEN  drug like '%duloxetin%'
+															  or drug like '%duloxatin%' 
+															  or drug like '%cymbalta%' 
+															  or drug like '%yentreve%' 
+														   THEN 'SNRI_Duloxetin'
+													       
+														  -- REMOVED THIS AS ROB AND RINA SUGGESTED AFTER SUPERVISION 15122015
+														  -- WHEN drug like '%flupentixol%' 
+															 --or drug like '%fluanxol%' 
+															 --or drug like '%depixol%' 
+														  -- THEN 'SNRI_Flupentixol'
+														   
+														   WHEN drug like '%tryptophan%' 
+															 or drug like '%optimax%' 
+														   THEN 'OTHERAD_Tryptophan'
+														   
+														   WHEN drug like '%bupropio%'
+														   THEN 'OTHERAD_Bupropion'
+							END
+							) as generic_ad_name
+
+
+ FROM Afernandes_N
+
+
+ Left Join
+
+
+ SQLCrisImport.dbo.medication_combined 
+ 
+ on
+
+ SQLCrisImport.dbo.medication_combined.BrcId = Afernandes_N.ReferralBrcid
+
+
+WHERE		
+		
+							(
+							(drug like '%lithium%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%camcolit%'    and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%liskonum%'    and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%priadel%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%li-liquid%'   and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+						     --(drug like '%tca%'  	    and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or no hits
+							(drug like '%tricyclic%'   and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%amitriptyline%' and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%elavil%'      and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%vanatrip%'    and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%endep%'       and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%triptaf%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%clomipramin%' and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%anafranil%'   and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%dosulepin%'   and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%dothiepin%'   and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%prothiden%'   and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%prothiaden%'  and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%doxepin%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%sinepin%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%sineq%'       and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%xepin%'       and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%imipramine%'  and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%tofranil%'    and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%lofepramine%' and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%lomont%'      and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%nortriptyli%' and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%pamelo%'      and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%allegr%'      and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%aventyl%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%trimipram%'   and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%surmonti%'    and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%mianserin%'   and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%trazodone%'   and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%molipaxin%'   and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%phenelzine%'  and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%phenylethylhydrazine%'and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%alazin%'      and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%nardil%'      and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%isocarboxazid%'  and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%tranylcypromin%' and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%parnate%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%moclobemide%' and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%manerix%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%citalopram%'  and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%cipramil%'    and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%celexa%'      and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%escitalopram%' and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%cipralex%'    and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%lexapro%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%fluoxetine%'  and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%prozac%'      and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%sarafem%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%bellzac%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%oxactin%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%fluvoxamine%' and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%faverin%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%paroxetin%'   and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%paxil%'       and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%seroxat%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%sertra%'      and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%bellsert%'    and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%lustral%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%seretra%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%zoloft%'      and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%mirtazapin%'  and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%zispin%'      and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%mirza%'       and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%mirtazep%'    and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%reboxet%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%reboxat%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%edronax%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%venlafaxine%' and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%effexor%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%efexor%'      and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%agomelatin%'  and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%duloxetin%'   and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%duloxatin%'   and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%cymbalta%'    and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%yentreve%'    and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%flupentixol%' and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%fluanxol%'    and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%depixol%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%tryptophan%'  and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%optimax%'     and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) or
+							(drug like '%bupropion%'   and SQLCrisImport.dbo.medication_combined.start_date <= Afernandes_N.Referral_end_date and start_date >= Afernandes_N.Referral_accepted_date) 
+							)
+							)as TABD
+
+
