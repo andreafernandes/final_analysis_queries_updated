@@ -1,0 +1,56 @@
+select Afernandes_N.[ReferralBrcid] as MainID
+      ,
+      [Referral_accepted_date]
+      ,[Referral_end_date]
+      --,[Spell_Number]
+      ,[Event_start_date]
+      ,[Event_Type_Of_Contact_ID]
+      ,[Referral_id]
+      ,[Event_id]
+      ,[diagnosis_date]
+      ,[primary_diagnosis]
+      ,[diagnosis_id] 
+      ,[Gender_ID]
+      ,[Marital_Status_ID]
+      ,ethnicitycleaned
+      ,cleaneddateofbirth
+      ,Date_Of_Death
+      ,[IMD 2010 adjusted]
+      ,ideation
+      ,Document_Date
+      
+
+from Afernandes_N
+
+
+
+-------------------------------------------------------
+left join
+
+
+SQLCRIS.dbo.EPR_Form
+
+on 
+
+Afernandes_N.ReferralBrcid = SQLCRIS.dbo.EPR_Form.BrcId 
+--------------------------------------------------------
+left join
+
+Afernandes_cohort_specific_imd10scores
+
+on
+
+Afernandes_N.ReferralBrcid = Afernandes_cohort_specific_imd10scores.ReferralBrcId
+
+--------------------------------------------------------
+left join
+
+Afernandes_N_specific_SI_table as SIAfernandes
+
+on
+
+Afernandes_N.ReferralBrcid = SIAfernandes.ReferralBrcId
+
+
+
+
