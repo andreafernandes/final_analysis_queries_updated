@@ -1,0 +1,51 @@
+
+
+--- notes
+
+select *
+
+into Afernandes_cohort_specific_imd10scores
+
+from 
+
+(
+select [IMD 2010 adjusted],
+	    ReferralBrcid 
+
+from 
+
+(
+select LSOA11,
+       ReferralBrcid,
+       cn_doc_id,
+       Referral_accepted_date,
+       Referral_end_date,
+       start_date
+
+from 
+--select * 
+--into Afernandesintermediatetable
+--from 
+--(
+--select LSOA11,
+--       ReferralBrcid,
+--       address.cn_doc_id,
+--       Referral_accepted_date,
+--       Referral_end_date,
+--       Address.start_date
+--from Afernandes_N
+--LEFT JOIN
+--SQLCRIS.DBO.Address
+--ON Afernandes_N.ReferralBrcid = Address.BrcId
+--) as 
+
+Afernandesintermediatetable
+
+where cn_doc_id = (select min(cn_doc_id) from Afernandesintermediatetable as f where f.ReferralBrcid = Afernandesintermediatetable.ReferralBrcid)
+)TABA
+left join
+
+SQLCrisImport.DBO.ons_2011_imd
+
+on TABA.LSOA11 = SQLCrisImport.DBO.ons_2011_imd.LSOA11CD
+)TABB
