@@ -1,0 +1,52 @@
+
+
+--- notes
+
+
+select *
+
+
+into Afernandes_N_specific_SI_table
+
+from
+
+(
+select  ideation,
+		ReferralBrcid 
+
+
+from 
+
+
+
+--select *
+
+--into SIintermediatetable
+
+--from 
+
+--(SELECT *
+
+--FROM Afernandes_N
+
+--LEFT JOIN
+
+--SQLCRIS_User.dbo.gate_ideation_test_andrea_backup as SIAfernandes
+
+--on
+
+--Afernandes_N.ReferralBrcid = SIAfernandes.BrcId 
+
+--where 
+
+--(CONVERT(datetime,Document_Date,103) >= Referral_accepted_date and
+--CONVERT(datetime,Document_Date,103) <= Referral_end_date)
+
+--)
+
+SIintermediatetable
+
+where id = (select min(id) from SIintermediatetable as f where f.ReferralBrcid = SIintermediatetable.ReferralBrcid)
+
+
+)TABC
