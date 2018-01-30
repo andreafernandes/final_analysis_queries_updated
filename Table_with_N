@@ -1,0 +1,13 @@
+ select   [ReferralBrcid]
+      ,[Referral_accepted_date]
+      ,[Referral_end_date]
+      ,[Spell_Number]
+      ,[Event_start_date]
+      ,[Event_Type_Of_Contact_ID]
+      ,[Referral_id]
+      ,[Event_id]
+      ,[diagnosis_date]
+      ,[primary_diagnosis]
+      ,[diagnosis_id]
+ into Afernandes_N
+ from Afernandes_actual_Table2
