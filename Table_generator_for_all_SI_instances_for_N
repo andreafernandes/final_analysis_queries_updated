@@ -1,0 +1,13 @@
+SELECT *
+
+FROM Afernandes_N
+
+ JOIN
+
+SQLCRIS_User.dbo.gate_ideation_test_andrea_backup as SIAfernandes
+
+on
+
+Afernandes_N.ReferralBrcid = SIAfernandes.BrcId 
+
+where ideation = 'Positve'
