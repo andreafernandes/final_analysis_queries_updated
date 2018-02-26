@@ -1,0 +1,66 @@
+-- ADDING BPD TO MY COHORT
+----------------------------------------------------------------------------------------------------------------------------------
+STEP 1
+----------------------------------------------------------------------------------------------------------------------------------
+
+SELECT * INTO
+
+Afernandesintermediatetable2
+
+FROM 
+
+(
+
+SELECT [ReferralBrcid]
+      ,[Referral_accepted_date]
+      ,[Referral_end_date]
+      ,SQLCrisImport.dbo.Diagnosis_combined.[diagnosis_id] as bpd_diag_id
+      ,SQLCrisImport.dbo.Diagnosis_combined.[primary_diagnosis] as bpd_diag
+      ,SQLCrisImport.dbo.Diagnosis_combined.[diagnosis_date] as bpd_diag_date
+
+FROM   [SQLCRIS_User].[dbo].[Afernandes_N]
+
+LEFT JOIN
+
+SQLCrisImport.dbo.Diagnosis_combined
+
+on 
+
+[SQLCRIS_User].[dbo].[Afernandes_N].ReferralBrcid = SQLCrisImport.dbo.Diagnosis_combined.brcid
+
+WHERE
+( 
+
+(
+SQLCrisImport.dbo.Diagnosis_combined.primary_diagnosis like '%bipolar%' and 
+SQLCrisImport.dbo.Diagnosis_combined.diagnosis_date >= [Referral_accepted_date] and 
+SQLCrisImport.dbo.Diagnosis_combined.diagnosis_date <= [Referral_end_date]
+)
+
+OR 
+
+(
+SQLCrisImport.dbo.Diagnosis_combined.primary_diagnosis like '%F31%' and 
+SQLCrisImport.dbo.Diagnosis_combined.diagnosis_date >= [Referral_accepted_date] and 
+SQLCrisImport.dbo.Diagnosis_combined.diagnosis_date <= [Referral_end_date]
+)
+)
+)tableA
+
+----------------------------------------------------------------------------------------------------------------------------------
+STEP 2
+----------------------------------------------------------------------------------------------------------------------------------
+SELECT *
+
+INTO Afernandes_N_specific_bpd
+
+
+FROM 
+
+(
+select *
+from Afernandesintermediatetable2
+where bpd_diag_id = (select min(bpd_diag_id) 
+                     from Afernandesintermediatetable2 as f 
+                     where f.ReferralBrcid = Afernandesintermediatetable2.ReferralBrcid)
+)TABC
