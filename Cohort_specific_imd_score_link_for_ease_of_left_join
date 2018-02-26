@@ -4,7 +4,7 @@
 
 select *
 
-into Afernandes_cohort_specific_imd10scores
+into Afernandes_N_with_imd10scores
 
 from 
 
