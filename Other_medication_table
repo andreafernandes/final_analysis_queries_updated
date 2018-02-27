@@ -1,0 +1,273 @@
+SELECT *
+
+INTO 
+
+Afernandesintermediatetable3
+
+FROM 
+
+
+(SELECT [ReferralBrcid]
+      ,[Referral_accepted_date]
+      ,[Referral_end_date]
+      ,[SQLCrisImport].[dbo].[medication_combined].id as othermedid
+
+FROM [SQLCRIS_User].[dbo].[Afernandes_N]
+
+LEFT JOIN 
+
+[SQLCrisImport].[dbo].[medication_combined] ON
+
+[SQLCRIS_User].[dbo].[Afernandes_N].ReferralBrcid = [SQLCrisImport].[dbo].[medication_combined].BrcId
+
+where 
+(
+ 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%chlorpromazin%')
+ ) 
+ or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%largactil%')
+ ) 
+ or  
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%levomepromazin%')
+ ) 
+ or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%methotrimeprazin%')) 
+ or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%nozinan%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%promazin%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%pericyazin%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%periciazin%')) 
+ or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%neulactil%')) 
+ or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%pipotiazin%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%fluphenazin%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%perphenazin%')) 
+ or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%fentazin%')) 
+ or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%prochlorperazin%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%trifluoperazin%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%stelazin%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%benperidol%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date)  and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%haloperidol%')) 
+ or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date)  and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%dozic%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%haldol%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%serenace%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%pimozid%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%orap%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%flupentixol%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%fluphenazin%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%modecat%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%depixol%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%zuclopenthixol%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%clopixol%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%sulpirid%'))
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%dolmatil%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%sulpor%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%amisulpride%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%solian%')) 
+ or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%clozapin%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%clozaril%')) 
+ or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%denzapine%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%zaponex%')) 
+ or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and
+([SQLCrisImport].[dbo].[medication_combined].drug like '%olanzapin%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%zyprexa%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%quetiapin%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+([SQLCrisImport].[dbo].[medication_combined].drug like '%seroquel%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%risperid%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%sertindol%')) or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%serdolect%')) or  
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%zotepin%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+([SQLCrisImport].[dbo].[medication_combined].drug like '%zoleptil%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%aripiprazol%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%abilify%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%paliperidone%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%invega%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+([SQLCrisImport].[dbo].[medication_combined].drug like '%pipotiazin%')) or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+([SQLCrisImport].[dbo].[medication_combined].drug like '%pipothiazin%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+([SQLCrisImport].[dbo].[medication_combined].drug like '%piportil%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+([SQLCrisImport].[dbo].[medication_combined].drug like '%zuclopenthixol%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%clopixol%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and  
+ ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and 
+ ([SQLCrisImport].[dbo].[medication_combined].drug like '%quazepam%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%doral%')) or  
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%niravam%')) or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%alprazolam%')) or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%prosom%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%estazolam%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%dalmane%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%flurazepam%')) or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%diazepam%')) or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%xanax%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%librium%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%chlordiazepoxide%')) or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%tranxene%')) or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%clorazepate%')) or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%klonopin%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%clonazepam%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%serax%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%oxazepam%')) or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%valium%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%diastat%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%ativan%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%lorazepam%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%halcion%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%triazolam%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%restoril%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%temazepam%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%versed%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%midazolam%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%onfi%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%clobazam%')) or 
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%valproat%')) or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%lamotrigin%')) or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%topiramat%')) or
+(([SQLCrisImport].[dbo].[medication_combined].start_date >= Referral_accepted_date) and ([SQLCrisImport].[dbo].[medication_combined].start_date <= Referral_end_date) and  ([SQLCrisImport].[dbo].[medication_combined].drug like '%carbamazepin%'))
+
+)
+)TABC
