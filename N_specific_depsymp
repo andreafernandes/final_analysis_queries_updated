@@ -1,0 +1,26 @@
+SELECT Referral_accepted_date,
+       Referral_end_date,
+       ReferralBrcid,
+       [id],
+       [BrcId],
+       [Document_Date],
+       [observation]
+
+FROM Afernandes_N
+
+LEFT JOIN
+
+[GateDB_Cris_Owned].dbo.gate_ian_low_mood
+
+ON
+
+Afernandes_N.ReferralBrcid = [GateDB_Cris_Owned].dbo.gate_ian_low_mood.BrcId
+
+WHERE (Document_Date >= Referral_accepted_date and 
+      Document_Date <= Referral_end_date) and
+      observation = 'positive'
+
+
+
+
+
