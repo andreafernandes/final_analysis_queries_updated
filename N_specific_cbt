@@ -1,0 +1,45 @@
+-------------------------------------------------------------------------
+ONLY 6 PEOPLE SHOWED UP. NOT WORTH THE LINKAGE.
+-------------------------------------------------------------------------
+
+
+
+SELECT *
+	   
+
+INTO Afernandes_N_specific_CBT
+
+FROM 
+
+(
+select *
+from 
+
+(
+
+SELECT  ReferralBrcid,
+        Referral_accepted_date,
+	    Referral_end_date,
+	   [SQLCrisImport].[dbo].[tbl_cbt_combined_current].BRCID as CBTBRCID,
+	   [SQLCrisImport].[dbo].[tbl_cbt_combined_current].CN_DOC_ID
+
+FROM dbo.Afernandes_N
+
+LEFT JOIN 
+
+[SQLCrisImport].[dbo].[tbl_cbt_combined_current]
+
+ON
+
+dbo.Afernandes_N.ReferralBrcid = [SQLCrisImport].[dbo].[tbl_cbt_combined_current].BRCID
+
+WHERE 
+(
+ [SQLCrisImport].[dbo].[tbl_cbt_combined_current].Session_date >= Referral_accepted_date and
+ [SQLCrisImport].[dbo].[tbl_cbt_combined_current].Session_date <= Referral_end_date
+)
+) Afernandes_Table2
+
+where CN_DOC_ID = (select min(CN_DOC_ID) from Afernandes_Table2 as f where f.ReferralBrcid = Afernandes_Table2.ReferralBrcid)
+)TABC
+
