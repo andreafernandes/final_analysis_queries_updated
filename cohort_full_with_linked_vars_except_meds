@@ -16,6 +16,7 @@ select Afernandes_N.[ReferralBrcid] as MainID
       ,cleaneddateofbirth
       ,Date_Of_Death
       ,[IMD 2010 adjusted]
+      ,CASWARD
       ,ideation
       ,Document_Date
       
@@ -36,11 +37,11 @@ Afernandes_N.ReferralBrcid = SQLCRIS.dbo.EPR_Form.BrcId
 --------------------------------------------------------
 left join
 
-Afernandes_cohort_specific_imd10scores
+Afernandes_N_specific_imd10scores
 
 on
 
-Afernandes_N.ReferralBrcid = Afernandes_cohort_specific_imd10scores.ReferralBrcId
+Afernandes_N.ReferralBrcid = Afernandes_N_specific_imd10scores.ReferralBrcId
 
 --------------------------------------------------------
 left join
@@ -50,7 +51,3 @@ Afernandes_N_specific_SI_table as SIAfernandes
 on
 
 Afernandes_N.ReferralBrcid = SIAfernandes.ReferralBrcId
-
-
-
-
