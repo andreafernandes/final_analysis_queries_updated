@@ -1,3 +1,7 @@
+-------------------------------------------------
+STEP 1
+-------------------------------------------------
+
 SELECT *
 
 INTO 
@@ -271,3 +275,24 @@ where
 
 )
 )TABC
+
+
+
+
+
+-------------------------------------
+STEP 2
+-------------------------------------
+
+
+SELECT *
+
+INTO Afernandes_N_specific_othermeds
+
+FROM 
+
+(
+select *
+from Afernandesintermediatetable3
+where othermedid = (select min(othermedid) from Afernandesintermediatetable3 as f where f.ReferralBrcid = Afernandesintermediatetable3.ReferralBrcid)
+)as TABC
